@@ -12,15 +12,15 @@ Every CAS component can exchange trustworthy lifecycle data without guessing str
 
 ### Validated
 
-(None yet - ship to validate)
+- v0.1 lifecycle schemas, examples, tests, CI, and governance - Phase 1
 
 ### Active
 
-- [ ] Publish the complete lifecycle as JSON Schema Draft 2020-12.
-- [ ] Require consistent correlation, repository, actor, timestamp, schema version, and W3C trace context metadata.
-- [ ] Provide valid examples and automated schema validation.
-- [ ] Define explicit semantic versioning and compatibility rules.
-- [ ] Provide enterprise-grade contribution, security, and CI foundations.
+- [x] Publish the complete lifecycle as JSON Schema Draft 2020-12.
+- [x] Require consistent correlation, repository, actor, timestamp, schema version, and W3C trace context metadata.
+- [x] Provide valid examples and automated schema validation.
+- [x] Define explicit semantic versioning and compatibility rules.
+- [x] Provide enterprise-grade contribution, security, and CI foundations.
 
 ### Out of Scope
 
@@ -58,4 +58,4 @@ This document evolves at phase transitions and milestone boundaries.
 3. Reconfirm that contract interoperability remains the core value.
 
 ---
-*Last updated: 2026-06-11 after initialization*
+*Last updated: 2026-06-11 after Phase 1 verification*

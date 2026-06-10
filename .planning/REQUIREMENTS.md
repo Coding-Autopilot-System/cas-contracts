@@ -7,21 +7,21 @@
 
 ### Contracts
 
-- [ ] **CONT-01**: Integrators can validate every lifecycle record against a versioned JSON Schema.
-- [ ] **CONT-02**: Integrators can use shared correlation and W3C trace-context metadata consistently across every lifecycle record.
-- [ ] **CONT-03**: Integrators can validate complete lifecycle examples from prompt intake through evaluation.
+- [x] **CONT-01**: Integrators can validate every lifecycle record against a versioned JSON Schema.
+- [x] **CONT-02**: Integrators can use shared correlation and W3C trace-context metadata consistently across every lifecycle record.
+- [x] **CONT-03**: Integrators can validate complete lifecycle examples from prompt intake through evaluation.
 
 ### Quality
 
-- [ ] **QUAL-01**: Contributors can run one command that compiles every schema and validates every example.
-- [ ] **QUAL-02**: Contributors receive failures when required metadata is missing or malformed.
-- [ ] **QUAL-03**: Pull requests validate contracts on Windows and Linux.
+- [x] **QUAL-01**: Contributors can run one command that compiles every schema and validates every example.
+- [x] **QUAL-02**: Contributors receive failures when required metadata is missing or malformed.
+- [x] **QUAL-03**: Pull requests validate contracts on Windows and Linux.
 
 ### Governance
 
-- [ ] **GOV-01**: Consumers can determine whether a proposed schema change is compatible.
-- [ ] **GOV-02**: Security researchers and contributors have documented reporting and contribution paths.
-- [ ] **GOV-03**: Maintainers can release contracts under an explicit license and semantic version.
+- [x] **GOV-01**: Consumers can determine whether a proposed schema change is compatible.
+- [x] **GOV-02**: Security researchers and contributors have documented reporting and contribution paths.
+- [x] **GOV-03**: Maintainers can release contracts under an explicit license and semantic version.
 
 ## vNext Requirements
 
@@ -41,17 +41,17 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CONT-01 | Phase 1 | In Progress |
-| CONT-02 | Phase 1 | In Progress |
-| CONT-03 | Phase 1 | In Progress |
-| QUAL-01 | Phase 1 | In Progress |
-| QUAL-02 | Phase 1 | In Progress |
-| QUAL-03 | Phase 1 | In Progress |
-| GOV-01 | Phase 1 | In Progress |
-| GOV-02 | Phase 1 | In Progress |
-| GOV-03 | Phase 1 | In Progress |
+| CONT-01 | Phase 1 | Complete |
+| CONT-02 | Phase 1 | Complete |
+| CONT-03 | Phase 1 | Complete |
+| QUAL-01 | Phase 1 | Complete |
+| QUAL-02 | Phase 1 | Complete |
+| QUAL-03 | Phase 1 | Complete |
+| GOV-01 | Phase 1 | Complete |
+| GOV-02 | Phase 1 | Complete |
+| GOV-03 | Phase 1 | Complete |
 
 **Coverage:** 9 v0.1 requirements, 9 mapped, 0 unmapped.
 
 ---
-*Last updated: 2026-06-11 after roadmap creation*
+*Last updated: 2026-06-11 after Phase 1 verification*
