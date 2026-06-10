@@ -1,0 +1,18 @@
+{
+  "name": "@coding-autopilot-system/contracts",
+  "version": "0.1.0",
+  "description": "Authoritative lifecycle contracts for the Coding Autopilot System",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "3.0.1"
+  }
+}
