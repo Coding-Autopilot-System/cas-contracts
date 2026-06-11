@@ -50,8 +50,10 @@
 | GOV-01 | Phase 1 | Complete |
 | GOV-02 | Phase 1 | Complete |
 | GOV-03 | Phase 1 | Complete |
+| COMP-01 | Phase 2 | Pending |
+| REG-01 | Phase 2 | Pending |
 
-**Coverage:** 9 v0.1 requirements, 9 mapped, 0 unmapped.
+**Coverage:** 12 requirements, 12 mapped, 0 unmapped.
 
 ---
 *Last updated: 2026-06-11 after Phase 1 verification*
