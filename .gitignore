@@ -1,4 +1,7 @@
 node_modules/
 coverage/
+registry/
+release-source/
+.tmp/
 *.log
 .DS_Store

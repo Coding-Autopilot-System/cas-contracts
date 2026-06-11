@@ -46,6 +46,7 @@ npm run validate
 | `examples/v0.1/` | Complete executable lifecycle fixtures |
 | `tests/` | Positive, negative, and lifecycle contract tests |
 | `docs/VERSIONING.md` | Compatibility and evolution policy |
+| `docs/DISTRIBUTION.md` | Stable and immutable schema registry URLs |
 | `.planning/` | GSD project context, requirements, roadmap, and research |
 
 ## Adoption
@@ -54,9 +55,11 @@ Producers should emit records that validate against the declared version. Consum
 
 The schemas are public APIs. Review [versioning and compatibility](docs/VERSIONING.md), [contributing](CONTRIBUTING.md), and [security](SECURITY.md) before proposing changes.
 
+Released schemas are discoverable from `https://schemas.coding-autopilot.dev/index.json`. Use stable `vMAJOR.MINOR` URLs for compatible updates or immutable `releases/vMAJOR.MINOR.PATCH` URLs for reproducible builds. See [schema distribution](docs/DISTRIBUTION.md).
+
 ## Status
 
-`v0.1.0` is the useful foundation release. It is ready for early integration and intentionally precedes generated SDKs and automated compatibility comparison.
+`v0.1.0` is the useful foundation release. Compatibility automation and versioned registry distribution are available for subsequent releases.
 
 ## License
 

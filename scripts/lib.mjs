@@ -27,11 +27,11 @@ export async function jsonFilesRecursive(directory) {
   return files.flat().sort();
 }
 
-export async function createValidator() {
+export async function createValidator(directory = schemaDirectory) {
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
 
-  for (const schemaPath of await jsonFiles(schemaDirectory)) {
+  for (const schemaPath of (await jsonFiles(directory)).filter((file) => file.endsWith(".schema.json"))) {
     ajv.addSchema(await readJson(schemaPath));
   }
 
