@@ -28,7 +28,6 @@ test("registry packages immutable and stable schema paths with verified digests"
     const content = await readFile(path.join(output, "v0.1", schema.path));
     assert.equal(createHash("sha256").update(content).digest("hex"), schema.sha256);
   }
-  assert.equal(await readFile(path.join(output, "CNAME"), "utf8"), "schemas.coding-autopilot.dev\n");
 });
 
 test("distributed stable schemas compile and retain authoritative ids", async () => {
@@ -57,4 +56,10 @@ test("registry builds are deterministic and append preserves immutable releases"
 
 test("registry rejects invalid release versions", async () => {
   await assert.rejects(() => buildRegistry({ version: "latest", source: schemaDirectory, output: "ignored" }), /semantic version/);
+});
+
+test("registry emits a custom-domain CNAME only when explicitly configured", async () => {
+  const output = await mkdtemp(path.join(os.tmpdir(), "cas-registry-domain-"));
+  await buildRegistry({ version: "0.1.0", source: schemaDirectory, output, domain: "schemas.example.com" });
+  assert.equal(await readFile(path.join(output, "CNAME"), "utf8"), "schemas.example.com\n");
 });

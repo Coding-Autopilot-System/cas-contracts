@@ -8,7 +8,7 @@ const versionPattern = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
 
 function parseArguments(args) {
   if (args.includes("--help")) return { help: true };
-  const result = { output: path.join(root, "registry"), append: false, domain: "schemas.coding-autopilot.dev" };
+  const result = { output: path.join(root, "registry"), append: false };
   for (let index = 0; index < args.length; index += 1) {
     if (args[index] === "--append") result.append = true;
     else {
@@ -51,7 +51,7 @@ async function packageSchemas(source, destination, version) {
   return manifest;
 }
 
-export async function buildRegistry({ version, source, output, append = false, domain = "schemas.coding-autopilot.dev" }) {
+export async function buildRegistry({ version, source, output, append = false, domain }) {
   if (!versionPattern.test(version ?? "")) throw new Error("version must be a semantic version such as 0.1.0");
   const [, major, minor] = version.match(versionPattern);
   const line = `v${major}.${minor}`;
@@ -81,7 +81,7 @@ export async function buildRegistry({ version, source, output, append = false, d
     lines: { ...existing.lines, [line]: version }
   };
   await writeJson(indexPath, index);
-  await writeFile(path.join(outputRoot, "CNAME"), `${domain}\n`);
+  if (domain) await writeFile(path.join(outputRoot, "CNAME"), `${domain}\n`);
   return { index, immutable, stable, output: outputRoot };
 }
 
