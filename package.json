@@ -8,6 +8,7 @@
     "node": ">=22"
   },
   "scripts": {
+    "compatibility": "node scripts/compatibility.mjs",
     "validate": "node scripts/validate.mjs",
     "test": "node --test"
   },

@@ -1,0 +1,57 @@
+name: Compatibility
+
+on:
+  pull_request:
+    paths:
+      - "schemas/**"
+      - "scripts/compatibility.mjs"
+      - "scripts/lib.mjs"
+      - "tests/compatibility.test.mjs"
+      - ".github/workflows/compatibility.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  classify:
+    name: Classify schema compatibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out proposed contracts
+        uses: actions/checkout@v4
+        with:
+          path: candidate
+          fetch-depth: 0
+      - name: Check out base contracts
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: baseline
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: candidate/package-lock.json
+      - run: npm ci
+        working-directory: candidate
+      - name: Classify changes
+        id: classify
+        shell: bash
+        run: |
+          set +e
+          node candidate/scripts/compatibility.mjs \
+            --base baseline/schemas \
+            --head candidate/schemas \
+            --output candidate/compatibility-report.json
+          code=$?
+          cat candidate/compatibility-report.json >> "$GITHUB_STEP_SUMMARY"
+          exit "$code"
+      - name: Upload compatibility report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compatibility-report
+          path: candidate/compatibility-report.json
+
