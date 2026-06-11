@@ -13,6 +13,7 @@ Every CAS component can exchange trustworthy lifecycle data without guessing str
 ### Validated
 
 - v0.1 lifecycle schemas, examples, tests, CI, and governance - Phase 1
+- Automated compatibility classification and stable versioned schema distribution - Phase 2
 
 ### Active
 
@@ -48,6 +49,8 @@ CAS currently has multiple repositories that need a shared language for prompts,
 | Use one common lifecycle metadata definition | Prevent traceability drift across contracts | Pending |
 | Keep contracts implementation-neutral | Allow all CAS runtimes to adopt them | Pending |
 | Publish examples as executable fixtures | Documentation and validation stay synchronized | Pending |
+| Fail unknown schema semantics as review-required | Prevent false compatibility claims | Implemented in Phase 2 |
+| Rebuild all release tags for registry publication | Preserve immutable release URLs while stable lines advance | Implemented in Phase 2 |
 
 ## Evolution
 
@@ -58,4 +61,4 @@ This document evolves at phase transitions and milestone boundaries.
 3. Reconfirm that contract interoperability remains the core value.
 
 ---
-*Last updated: 2026-06-11 after Phase 1 verification*
+*Last updated: 2026-06-11 after Phase 2 verification*
