@@ -18,6 +18,16 @@
 
 **Requirements:** COMP-01, REG-01
 
+**Status:** Complete (2026-06-11)
+
+**Plans:** 2/2 plans complete
+
+**Wave 1**
+- [x] 02-01: Automated compatibility classification and PR enforcement
+
+**Wave 2** *(blocked on Wave 1 completion)*
+- [x] 02-02: Deterministic versioned registry and release distribution
+
 **Success criteria:**
 1. Pull requests receive automated breaking-change classification.
 2. Released schemas are resolvable from stable versioned URLs.

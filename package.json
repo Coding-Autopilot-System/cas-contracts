@@ -8,6 +8,9 @@
     "node": ">=22"
   },
   "scripts": {
+    "build:registry": "node scripts/build-registry.mjs",
+    "compatibility": "node scripts/compatibility.mjs",
+    "validate:registry": "node scripts/validate-registry.mjs",
     "validate": "node scripts/validate.mjs",
     "test": "node --test"
   },

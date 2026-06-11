@@ -26,8 +26,8 @@
 ## vNext Requirements
 
 - **SDK-01**: Consumers can install generated typed SDKs for supported languages.
-- **REG-01**: Consumers can resolve published schemas from a stable registry endpoint.
-- **COMP-01**: CI automatically compares proposed schemas against the latest release for compatibility.
+- [x] **REG-01**: Consumers can resolve published schemas from a stable registry endpoint.
+- [x] **COMP-01**: CI automatically compares proposed schemas against the latest release for compatibility.
 
 ## Out of Scope
 
@@ -50,8 +50,10 @@
 | GOV-01 | Phase 1 | Complete |
 | GOV-02 | Phase 1 | Complete |
 | GOV-03 | Phase 1 | Complete |
+| COMP-01 | Phase 2 | Complete |
+| REG-01 | Phase 2 | Complete |
 
-**Coverage:** 9 v0.1 requirements, 9 mapped, 0 unmapped.
+**Coverage:** 12 requirements, 12 mapped, 0 unmapped.
 
 ---
-*Last updated: 2026-06-11 after Phase 1 verification*
+*Last updated: 2026-06-11 after Phase 2 verification*

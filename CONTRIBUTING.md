@@ -18,6 +18,14 @@ npm run validate
 4. Run the full validation suite.
 5. Submit a focused pull request with compatibility impact and migration notes.
 
+Run the automated compatibility classifier against the current release or target branch before submitting:
+
+```powershell
+npm run compatibility -- --base path\to\baseline\schemas --head schemas --output compatibility-report.json
+```
+
+Pull-request CI repeats this comparison. Breaking changes and changes requiring semantic review fail the compatibility job.
+
 Breaking changes require a new major-version directory and explicit maintainer approval.
 
 Do not include secrets, credentials, customer data, or personal data in schemas or examples.
