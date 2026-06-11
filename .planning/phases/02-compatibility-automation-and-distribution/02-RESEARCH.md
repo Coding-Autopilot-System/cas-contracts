@@ -26,4 +26,3 @@
 | Broken relative `$ref` values | Preserve each version directory layout and compile generated schemas in tests |
 | CI unable to compare shallow history | Checkout full history for compatibility job |
 | Pages custom domain not configured | Document DNS/Pages prerequisite and keep generated artifact independently testable |
-

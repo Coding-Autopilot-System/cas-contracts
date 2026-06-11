@@ -53,4 +53,3 @@ Implemented deterministic schema registry packaging with stable and immutable UR
 Added a dedicated registry validator beyond the original plan so the exact multi-tag artifact is verified after assembly and before deployment.
 
 ## Self-Check: PASSED
-
