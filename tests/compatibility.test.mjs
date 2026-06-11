@@ -41,6 +41,7 @@ test("classifies required additions, removals, narrowing, and tightened constrai
   const cases = [
     [{ ...objectSchema }, { ...objectSchema, required: ["id", "label"], properties: { ...objectSchema.properties, label: { type: "string" } } }],
     [objectSchema, { ...objectSchema, properties: {} }],
+    [{ allOf: [objectSchema] }, { allOf: [{ ...objectSchema, required: ["id", "label"], properties: { ...objectSchema.properties, label: { type: "string" } } }] }],
     [{ type: ["string", "null"] }, { type: "string" }],
     [{ enum: ["a", "b"] }, { enum: ["a"] }],
     [{ type: "string", maxLength: 10 }, { type: "string", maxLength: 5 }],
@@ -56,3 +57,7 @@ test("classifies unsupported semantic keyword changes as review_required", async
   assert.match(report.changes[0].location, /oneOf/);
 });
 
+test("classifies property constraint removal from an open object as compatible", async () => {
+  const report = await classify({ type: "object", properties: { value: { type: "string" } } }, { type: "object", properties: {} });
+  assert.equal(report.status, "compatible");
+});

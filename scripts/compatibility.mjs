@@ -10,9 +10,9 @@ const annotations = new Set([
 ]);
 const handled = new Set([
   ...annotations, "$defs", "$id", "$ref", "additionalProperties", "const", "enum",
-  "exclusiveMaximum", "exclusiveMinimum", "format", "items", "maxItems", "maxLength",
+  "allOf", "anyOf", "exclusiveMaximum", "exclusiveMinimum", "format", "items", "maxItems", "maxLength",
   "maxProperties", "maximum", "minItems", "minLength", "minProperties", "minimum",
-  "multipleOf", "pattern", "properties", "required", "type", "unevaluatedProperties",
+  "multipleOf", "oneOf", "pattern", "properties", "required", "type", "unevaluatedProperties",
   "uniqueItems"
 ]);
 
@@ -91,7 +91,11 @@ function compareSchema(before, after, location, changes) {
   const oldProperties = before.properties ?? {};
   const newProperties = after.properties ?? {};
   for (const name of Object.keys(oldProperties)) {
-    if (!(name in newProperties)) add(changes, "breaking", `${location}/properties/${name}`, "property removed");
+    if (!(name in newProperties)) {
+      const closesObject = before.additionalProperties === false || before.unevaluatedProperties === false;
+      add(changes, closesObject ? "breaking" : "compatible", `${location}/properties/${name}`,
+        closesObject ? "property removed from closed object" : "property constraint removed");
+    }
     else compareSchema(oldProperties[name], newProperties[name], `${location}/properties/${name}`, changes);
   }
   for (const name of Object.keys(newProperties)) {
@@ -131,6 +135,26 @@ function compareSchema(before, after, location, changes) {
     if (before.items === undefined) add(changes, "breaking", `${location}/items`, "items constraint added");
     else if (after.items === undefined) add(changes, "compatible", `${location}/items`, "items constraint removed");
     else compareSchema(before.items, after.items, `${location}/items`, changes);
+  }
+
+  for (const keyword of ["allOf", "anyOf"]) {
+    if (equal(before[keyword], after[keyword])) continue;
+    const oldSchemas = before[keyword] ?? [];
+    const newSchemas = after[keyword] ?? [];
+    const common = Math.min(oldSchemas.length, newSchemas.length);
+    for (let index = 0; index < common; index += 1) {
+      compareSchema(oldSchemas[index], newSchemas[index], `${location}/${keyword}/${index}`, changes);
+    }
+    if (oldSchemas.length !== newSchemas.length) {
+      const additionBreaks = keyword === "allOf";
+      const added = newSchemas.length > oldSchemas.length;
+      add(changes, added === additionBreaks ? "breaking" : "compatible", `${location}/${keyword}`,
+        `${keyword} schema count changed from ${oldSchemas.length} to ${newSchemas.length}`);
+    }
+  }
+
+  if (!equal(before.oneOf, after.oneOf)) {
+    add(changes, "review_required", `${location}/oneOf`, "oneOf semantics changed");
   }
 
   if (!equal(before.$defs, after.$defs)) {
@@ -210,4 +234,3 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     process.exitCode = 2;
   });
 }
-

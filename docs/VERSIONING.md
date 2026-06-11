@@ -30,7 +30,7 @@ Every contract change must include updated examples, tests, changelog entry, com
 
 ## Automated Classification
 
-Pull requests that affect schemas run the directional compatibility classifier against the base branch:
+Pull requests that affect schemas run the directional compatibility classifier against the latest semantic-version release:
 
 ```powershell
 npm run compatibility -- --base path\to\baseline\schemas --head schemas --output compatibility-report.json

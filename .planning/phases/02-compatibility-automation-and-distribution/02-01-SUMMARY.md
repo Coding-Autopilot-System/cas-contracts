@@ -32,7 +32,7 @@ Implemented a dependency-free directional JSON Schema classifier with pull-reque
 
 - Classifies unchanged, compatible, breaking, and review-required schema tree changes.
 - Detects property, required-field, type, enum, constraint, extensibility, definition, and schema-file compatibility changes.
-- Fails pull-request CI for breaking and review-required changes.
+- Compares pull requests with the latest semantic release and fails CI for breaking and review-required changes.
 - Documents local use and governance semantics.
 
 ## Verification
@@ -47,4 +47,3 @@ Implemented a dependency-free directional JSON Schema classifier with pull-reque
 Compatibility tests generate isolated fixtures at runtime instead of storing static fixture directories. This keeps each case explicit and avoids fixture drift.
 
 ## Self-Check: PASSED
-
