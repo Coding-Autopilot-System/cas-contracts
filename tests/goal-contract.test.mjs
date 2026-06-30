@@ -67,3 +67,17 @@ test("v1 lifecycle rejects incomplete metadata and malformed trace context", () 
   malformedTrace.traceContext.traceparent = "invalid";
   assert.equal(validate(malformedTrace), false);
 });
+
+test("v1 verification and evaluation records require evidence URIs", async () => {
+  const verification = await readJson(path.join(root, "examples", version, "verification-result.json"));
+  const verificationValidator = ajv.getSchema("https://schemas.coding-autopilot.dev/v1.0/verification-result.schema.json");
+  const noVerificationEvidence = structuredClone(verification);
+  delete noVerificationEvidence.checks[0].evidenceUri;
+  assert.equal(verificationValidator(noVerificationEvidence), false);
+
+  const evaluation = await readJson(path.join(root, "examples", version, "evaluation-result.json"));
+  const evaluationValidator = ajv.getSchema("https://schemas.coding-autopilot.dev/v1.0/evaluation-result.schema.json");
+  const noEvaluationEvidence = structuredClone(evaluation);
+  delete noEvaluationEvidence.evidence;
+  assert.equal(evaluationValidator(noEvaluationEvidence), false);
+});

@@ -13,5 +13,8 @@
   "metrics": {
     "schemaValidity": 1,
     "traceability": 1
-  }
+  },
+  "evidence": [
+    { "kind": "test-report", "uri": "cas://evidence/evaluation-001" }
+  ]
 }
