@@ -1,0 +1,18 @@
+{
+  "kind": "ArtifactManifest",
+  "correlationId": "corr-20260611-001",
+  "promptId": "prompt-001",
+  "runId": "run-001",
+  "repo": "Coding-Autopilot-System/cas-contracts",
+  "actor": { "id": "gsd-orchestrator", "type": "workflow" },
+  "timestamp": "2026-06-11T09:00:04Z",
+  "schemaVersion": "1.0.0",
+  "traceContext": { "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01" },
+  "artifacts": [
+    {
+      "kind": "schema",
+      "uri": "https://schemas.coding-autopilot.dev/v1.0/prompt-envelope.schema.json",
+      "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    }
+  ]
+}
