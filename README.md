@@ -42,8 +42,9 @@ npm run validate
 
 | Path | Purpose |
 |------|---------|
-| `schemas/v0.1/` | Authoritative JSON Schemas |
-| `examples/v0.1/` | Complete executable lifecycle fixtures |
+| `schemas/v0.1/` | Foundation lifecycle schemas retained for existing consumers |
+| `schemas/v1.0/` | Bounded goal and lifecycle schemas |
+| `examples/v0.1/`, `examples/v1.0/` | Complete executable lifecycle fixtures |
 | `tests/` | Positive, negative, and lifecycle contract tests |
 | `docs/VERSIONING.md` | Compatibility and evolution policy |
 | `docs/DISTRIBUTION.md` | Stable and immutable schema registry URLs |
@@ -57,9 +58,15 @@ The schemas are public APIs. Review [versioning and compatibility](docs/VERSIONI
 
 Released schemas are discoverable from `https://coding-autopilot-system.github.io/cas-contracts/index.json`. Use stable `vMAJOR.MINOR` URLs for compatible updates or immutable `releases/vMAJOR.MINOR.PATCH` URLs for reproducible builds. See [schema distribution](docs/DISTRIBUTION.md).
 
+The v1 `WorkRequest` rejects dispatch unless objective, repositories,
+measurable criteria, constraints, risk, approval and verification policies,
+capabilities, bounded execution limits, and stop policy are explicit. Its
+documented defaults are fan-out 3, iterations 3, attempts 3, runtime 1800
+seconds, model calls 20, and no-progress limit 2.
+
 ## Status
 
-`v0.1.0` is the useful foundation release. Compatibility automation and versioned registry distribution are available for subsequent releases.
+`v0.1.0` remains the supported foundation line. `v1.0.0` adds the bounded goal contract as an explicit major-version opt-in.
 
 ## License
 
