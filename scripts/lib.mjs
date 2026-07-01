@@ -4,8 +4,10 @@ import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
 export const root = path.resolve(import.meta.dirname, "..");
-export const schemaDirectory = path.join(root, "schemas", "v0.1");
-export const exampleDirectory = path.join(root, "examples", "v0.1");
+export const schemaRoot = path.join(root, "schemas");
+export const exampleRoot = path.join(root, "examples");
+export const schemaDirectory = path.join(schemaRoot, "v0.1");
+export const exampleDirectory = path.join(exampleRoot, "v0.1");
 
 export async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
@@ -27,11 +29,11 @@ export async function jsonFilesRecursive(directory) {
   return files.flat().sort();
 }
 
-export async function createValidator(directory = schemaDirectory) {
+export async function createValidator(directory = schemaRoot) {
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
 
-  for (const schemaPath of (await jsonFiles(directory)).filter((file) => file.endsWith(".schema.json"))) {
+  for (const schemaPath of (await jsonFilesRecursive(directory)).filter((file) => file.endsWith(".schema.json"))) {
     ajv.addSchema(await readJson(schemaPath));
   }
 
@@ -40,5 +42,6 @@ export async function createValidator(directory = schemaDirectory) {
 
 export function schemaIdForExample(examplePath) {
   const name = path.basename(examplePath, ".json");
-  return `https://schemas.coding-autopilot.dev/v0.1/${name}.schema.json`;
+  const version = path.basename(path.dirname(examplePath));
+  return `https://schemas.coding-autopilot.dev/${version}/${name}.schema.json`;
 }

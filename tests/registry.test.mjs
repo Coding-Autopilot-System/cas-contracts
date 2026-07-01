@@ -4,7 +4,7 @@ import { mkdtemp, readFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { buildRegistry } from "../scripts/build-registry.mjs";
+import { buildAllRegistry, buildRegistry } from "../scripts/build-registry.mjs";
 import { createValidator, jsonFiles, readJson, schemaDirectory } from "../scripts/lib.mjs";
 import { validateRegistry } from "../scripts/validate-registry.mjs";
 
@@ -62,4 +62,15 @@ test("registry emits a custom-domain CNAME only when explicitly configured", asy
   const output = await mkdtemp(path.join(os.tmpdir(), "cas-registry-domain-"));
   await buildRegistry({ version: "0.1.0", source: schemaDirectory, output, domain: "schemas.example.com" });
   assert.equal(await readFile(path.join(output, "CNAME"), "utf8"), "schemas.example.com\n");
+});
+
+test("registry all-mode publishes v0.1 and v1.0 without replacing either line", async () => {
+  const output = await mkdtemp(path.join(os.tmpdir(), "cas-registry-all-"));
+  await buildAllRegistry({ output });
+
+  const index = await validateRegistry(output);
+  assert.deepEqual(index.releases, ["0.1.0", "1.0.0"]);
+  assert.deepEqual(index.lines, { "v0.1": "0.1.0", "v1.0": "1.0.0" });
+  assert.equal((await readJson(path.join(output, "v0.1", "manifest.json"))).schemas.length, 8);
+  assert.equal((await readJson(path.join(output, "v1.0", "manifest.json"))).schemas.length, 8);
 });
