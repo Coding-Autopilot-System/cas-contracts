@@ -22,7 +22,7 @@ test("registry packages immutable and stable schema paths with verified digests"
 
   assert.deepEqual(index, { schemaVersion: "1.0.0", releases: ["0.1.0"], lines: { "v0.1": "0.1.0" } });
   assert.deepEqual(stableManifest, immutableManifest);
-  assert.equal(stableManifest.schemas.length, 8);
+  assert.equal(stableManifest.schemas.length, 14);
   assert.match(stableManifest.schemas[0].sha256, /^[\da-f]{64}$/);
   for (const schema of stableManifest.schemas) {
     const content = await readFile(path.join(output, "v0.1", schema.path));

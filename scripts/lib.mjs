@@ -1,10 +1,13 @@
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
-export const root = path.resolve(import.meta.dirname, "..");
-export const schemaDirectory = path.join(root, "schemas", "v0.1");
+const moduleDir = path.dirname(fileURLToPath(import.meta.url));
+
+export const root = path.resolve(moduleDir, "..");
+export const schemaDirectory = path.join(root, "schemas");
 export const exampleDirectory = path.join(root, "examples", "v0.1");
 
 export async function readJson(filePath) {
@@ -31,7 +34,7 @@ export async function createValidator(directory = schemaDirectory) {
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
 
-  for (const schemaPath of (await jsonFiles(directory)).filter((file) => file.endsWith(".schema.json"))) {
+  for (const schemaPath of (await jsonFilesRecursive(directory)).filter((file) => file.endsWith(".schema.json"))) {
     ajv.addSchema(await readJson(schemaPath));
   }
 
