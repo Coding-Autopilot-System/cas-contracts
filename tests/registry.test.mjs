@@ -22,7 +22,7 @@ test("registry packages immutable and stable schema paths with verified digests"
 
   assert.deepEqual(index, { schemaVersion: "1.0.0", releases: ["0.1.0"], lines: { "v0.1": "0.1.0" } });
   assert.deepEqual(stableManifest, immutableManifest);
-  assert.equal(stableManifest.schemas.length, 14);
+  assert.equal(stableManifest.schemas.length, 8);
   assert.match(stableManifest.schemas[0].sha256, /^[\da-f]{64}$/);
   for (const schema of stableManifest.schemas) {
     const content = await readFile(path.join(output, "v0.1", schema.path));
@@ -64,13 +64,14 @@ test("registry emits a custom-domain CNAME only when explicitly configured", asy
   assert.equal(await readFile(path.join(output, "CNAME"), "utf8"), "schemas.example.com\n");
 });
 
-test("registry all-mode publishes v0.1 and v1.0 without replacing either line", async () => {
+test("registry all-mode publishes all lines without replacing any", async () => {
   const output = await mkdtemp(path.join(os.tmpdir(), "cas-registry-all-"));
   await buildAllRegistry({ output });
 
   const index = await validateRegistry(output);
-  assert.deepEqual(index.releases, ["0.1.0", "1.0.0"]);
-  assert.deepEqual(index.lines, { "v0.1": "0.1.0", "v1.0": "1.0.0" });
+  assert.deepEqual(index.releases, ["0.1.0", "1.0.0", "1.1.0"]);
+  assert.deepEqual(index.lines, { "v0.1": "0.1.0", "v1.0": "1.0.0", "v1.1": "1.1.0" });
   assert.equal((await readJson(path.join(output, "v0.1", "manifest.json"))).schemas.length, 8);
   assert.equal((await readJson(path.join(output, "v1.0", "manifest.json"))).schemas.length, 8);
+  assert.equal((await readJson(path.join(output, "v1.1", "manifest.json"))).schemas.length, 6);
 });
