@@ -1,0 +1,31 @@
+{
+  "kind": "WorkRequest",
+  "correlationId": "corr-20260611-001",
+  "promptId": "prompt-001",
+  "runId": "run-001",
+  "repo": "Coding-Autopilot-System/cas-contracts",
+  "actor": { "id": "autogen", "type": "agent" },
+  "timestamp": "2026-06-11T09:00:02Z",
+  "schemaVersion": "1.0.0",
+  "traceContext": { "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01" },
+  "workType": "change",
+  "objective": "Publish and validate the bounded v1 goal contract.",
+  "targetRef": "refs/heads/main",
+  "targetRepositories": ["Coding-Autopilot-System/cas-contracts"],
+  "successCriteria": [
+    { "id": "contracts-pass", "description": "All contract examples and negative validation tests pass." }
+  ],
+  "constraints": ["Preserve all v0.1 payloads and schemas unchanged."],
+  "riskLevel": "medium",
+  "approvalPolicy": "risk-based",
+  "verificationProfile": "contracts-default",
+  "requiredCapabilities": ["json-schema", "node-test"],
+  "budget": {
+    "maxFanOut": 3,
+    "maxIterations": 3,
+    "maxAttemptsPerWorkItem": 3,
+    "maxRuntimeSeconds": 1800,
+    "maxModelCalls": 20
+  },
+  "stopPolicy": { "noProgressLimit": 2 }
+}

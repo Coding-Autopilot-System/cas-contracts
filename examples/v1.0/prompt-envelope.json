@@ -1,0 +1,14 @@
+{
+  "kind": "PromptEnvelope",
+  "correlationId": "corr-20260611-001",
+  "promptId": "prompt-001",
+  "runId": "run-001",
+  "repo": "Coding-Autopilot-System/cas-contracts",
+  "actor": { "id": "kim", "type": "human", "displayName": "Repository owner" },
+  "timestamp": "2026-06-11T09:00:00Z",
+  "schemaVersion": "1.0.0",
+  "traceContext": { "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01" },
+  "intent": "Add a versioned lifecycle contract",
+  "prompt": "Define and validate the CAS lifecycle contracts.",
+  "constraints": ["No secrets in examples", "Preserve backward compatibility"]
+}

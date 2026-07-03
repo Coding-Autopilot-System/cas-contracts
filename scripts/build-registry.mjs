@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -8,6 +8,7 @@ const versionPattern = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
 
 function parseArguments(args) {
   if (args.includes("--help")) return { help: true };
+  if (args.length === 0 || args.includes("--all")) return { all: true, output: path.join(root, "registry") };
   const result = { output: path.join(root, "registry"), append: false };
   for (let index = 0; index < args.length; index += 1) {
     if (args[index] === "--append") result.append = true;
@@ -85,14 +86,38 @@ export async function buildRegistry({ version, source, output, append = false, d
   return { index, immutable, stable, output: outputRoot };
 }
 
+export async function buildAllRegistry({ output = path.join(root, "registry"), domain } = {}) {
+  const lines = (await readdir(path.join(root, "schemas"), { withFileTypes: true }))
+    .filter((entry) => entry.isDirectory() && /^v\d+\.\d+$/.test(entry.name))
+    .map((entry) => entry.name)
+    .sort((left, right) => left.localeCompare(right, undefined, { numeric: true }));
+  if (!lines.length) throw new Error("No versioned schema directories found");
+
+  let result;
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const version = `${line.slice(1)}.0`;
+    result = await buildRegistry({
+      version,
+      source: path.join(root, "schemas", line),
+      output,
+      append: index > 0,
+      domain: index === lines.length - 1 ? domain : undefined
+    });
+  }
+  return result;
+}
+
 async function main() {
   const args = parseArguments(process.argv.slice(2));
   if (args.help) {
-    console.log("Usage: node scripts/build-registry.mjs --version <x.y.z> [--source <schemas>] [--output <registry>] [--append]");
+    console.log("Usage: node scripts/build-registry.mjs [--all] | --version <x.y.z> [--source <schemas>] [--output <registry>] [--append]");
     return;
   }
-  const result = await buildRegistry(args);
-  console.log(`Built ${result.stable.schemas.length} schemas for ${args.version} at ${result.output}`);
+  const result = args.all ? await buildAllRegistry(args) : await buildRegistry(args);
+  console.log(args.all
+    ? `Built ${result.index.releases.length} contract releases at ${result.output}`
+    : `Built ${result.stable.schemas.length} schemas for ${args.version} at ${result.output}`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

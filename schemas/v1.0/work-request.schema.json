@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.coding-autopilot.dev/v1.0/work-request.schema.json",
+  "title": "WorkRequest",
+  "type": "object",
+  "allOf": [
+    { "$ref": "common.schema.json#/$defs/lifecycleMetadata" },
+    {
+      "type": "object",
+      "required": [
+        "kind", "workType", "objective", "targetRef", "targetRepositories",
+        "successCriteria", "constraints", "riskLevel", "approvalPolicy",
+        "verificationProfile", "requiredCapabilities", "budget", "stopPolicy"
+      ],
+      "properties": {
+        "kind": { "const": "WorkRequest" },
+        "workType": { "enum": ["analyze", "change", "verify", "repair", "deploy"] },
+        "objective": { "type": "string", "minLength": 1, "maxLength": 5000 },
+        "targetRef": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "targetRepositories": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" }
+        },
+        "successCriteria": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 100,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "description"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1, "maxLength": 128 },
+              "description": { "type": "string", "minLength": 1, "maxLength": 1000 }
+            }
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 100,
+          "items": { "type": "string", "minLength": 1, "maxLength": 1000 }
+        },
+        "riskLevel": { "enum": ["low", "medium", "high", "critical"] },
+        "approvalPolicy": { "enum": ["none", "risk-based", "always"] },
+        "verificationProfile": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "requiredCapabilities": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 128 }
+        },
+        "budget": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["maxFanOut", "maxIterations", "maxAttemptsPerWorkItem", "maxRuntimeSeconds", "maxModelCalls"],
+          "properties": {
+            "maxFanOut": { "type": "integer", "minimum": 1, "maximum": 16, "default": 3 },
+            "maxIterations": { "type": "integer", "minimum": 1, "maximum": 100, "default": 3 },
+            "maxAttemptsPerWorkItem": { "type": "integer", "minimum": 1, "maximum": 20, "default": 3 },
+            "maxRuntimeSeconds": { "type": "integer", "minimum": 1, "maximum": 86400, "default": 1800 },
+            "maxModelCalls": { "type": "integer", "minimum": 1, "maximum": 1000, "default": 20 },
+            "maxProviderCost": { "type": "number", "exclusiveMinimum": 0 },
+            "currency": { "type": "string", "pattern": "^[A-Z]{3}$" }
+          },
+          "dependentRequired": { "maxProviderCost": ["currency"], "currency": ["maxProviderCost"] }
+        },
+        "stopPolicy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["noProgressLimit"],
+          "properties": {
+            "noProgressLimit": { "type": "integer", "minimum": 1, "maximum": 20, "default": 2 }
+          }
+        }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

@@ -24,6 +24,18 @@ Major releases may remove or rename properties, add required properties, narrow 
 - Consumers should ignore unknown optional properties only when their validator policy permits them.
 - Consumers must not infer compatibility solely from file paths; validate against the declared schema.
 
+## v1.0 Goal Contract Migration
+
+The v1.0 line introduces required bounded-goal properties on `WorkRequest`.
+This is intentionally a major-version boundary: v0.1 schemas and payloads remain
+published and valid, while producers opt into v1.0 by emitting
+`schemaVersion: 1.0.0` and supplying success criteria, constraints, policies,
+capabilities, budget limits, and stop policy.
+
+Registry builds publish both stable lines. Consumers must select the schema ID
+matching the record's explicit version; they must not validate a v0.1 payload
+against v1.0 or silently synthesize missing limits.
+
 ## Change Procedure
 
 Every contract change must include updated examples, tests, changelog entry, compatibility classification, and migration notes for breaking changes.
