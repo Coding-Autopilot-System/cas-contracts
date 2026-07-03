@@ -7,7 +7,7 @@ sub-path of the documentation site on a single GitHub Pages origin:
 https://coding-autopilot-system.github.io/cas-contracts/registry/
 ```
 
-Schema `$id` values use the reserved canonical namespace `https://schemas.coding-autopilot.dev/`. This namespace is the stable *identity* of each schema and is independent of where the schema is hosted. Until DNS is configured for that domain, consumers must resolve schemas from the live GitHub Pages distribution URL above.
+Schema `$id` values use the live GitHub Pages registry base `https://coding-autopilot-system.github.io/cas-contracts/registry/`, so every `$id` resolves directly to the schema it identifies. Identity and hosting location are the same URL; consumers can dereference an `$id` to fetch the schema.
 
 ## URL Contract
 
@@ -51,19 +51,11 @@ a schema tag can no longer clobber each other on the single Pages origin.
 
 Repository administrators must configure GitHub Pages to use **GitHub Actions** as its source. Publication uses GitHub's OIDC token and does not require stored deployment credentials.
 
-## Custom domain (manual follow-up)
+## Custom domain (optional future work)
 
-Serving the registry under the canonical `schemas.coding-autopilot.dev` `$id`
-namespace requires infrastructure that cannot be provisioned from this
-repository:
-
-1. Configure DNS for `schemas.coding-autopilot.dev` (a `CNAME` to
-   `coding-autopilot-system.github.io`, or the four GitHub Pages `A`/`AAAA`
-   apex records) with the domain registrar.
-2. Because the single Pages origin now hosts the documentation at its root and
-   the registry under `/registry/`, a custom domain would remap the **entire**
-   origin — it cannot point only at the `/registry/` sub-path. Activating
-   `schemas.coding-autopilot.dev` therefore requires a dedicated hosting origin
-   for the registry (for example, a separate Pages project or a CDN) rather than
-   the shared docs site. Until such an origin exists, resolve schemas from the
-   GitHub Pages URL above.
+Schema `$id` values resolve on the live GitHub Pages origin today, so no DNS or
+custom-domain work is required for schemas to dereference. A vanity domain (for
+example `schemas.coding-autopilot.dev`) would only be a cosmetic rename of the
+`$id` base and, if ever adopted, would require its own hosting origin plus a
+coordinated `$id` migration across this repository and every consumer that
+vendors these schemas. It is intentionally out of scope here.

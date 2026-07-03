@@ -43,5 +43,5 @@ export async function createValidator(directory = schemaRoot) {
 export function schemaIdForExample(examplePath) {
   const name = path.basename(examplePath, ".json");
   const version = path.basename(path.dirname(examplePath));
-  return `https://schemas.coding-autopilot.dev/${version}/${name}.schema.json`;
+  return `https://coding-autopilot-system.github.io/cas-contracts/registry/${version}/${name}.schema.json`;
 }
