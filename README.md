@@ -1,5 +1,8 @@
 # CAS Contracts
 
+[![CI](https://github.com/Coding-Autopilot-System/cas-contracts/actions/workflows/ci.yml/badge.svg)](https://github.com/Coding-Autopilot-System/cas-contracts/actions/workflows/ci.yml) [![CodeQL](https://github.com/Coding-Autopilot-System/cas-contracts/actions/workflows/codeql.yml/badge.svg)](https://github.com/Coding-Autopilot-System/cas-contracts/actions/workflows/codeql.yml)
+
+
 Public, authoritative, versioned contracts for the Coding Autopilot System.
 
 CAS Contracts gives every CAS component one implementation-neutral lifecycle:
