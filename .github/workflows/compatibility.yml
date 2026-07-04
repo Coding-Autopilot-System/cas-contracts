@@ -2,6 +2,7 @@ name: Compatibility
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
     paths:
       - "schemas/**"
       - "scripts/compatibility.mjs"
