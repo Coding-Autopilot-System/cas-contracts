@@ -42,6 +42,8 @@ jobs:
       - name: Classify changes
         id: classify
         shell: bash
+        env:
+          REVIEW_APPROVED: ${{ contains(github.event.pull_request.labels.*.name, 'compatibility-reviewed') }}
         run: |
           set +e
           node candidate/scripts/compatibility.mjs \
@@ -55,6 +57,10 @@ jobs:
             cat candidate/compatibility-report.json
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+          if [[ "$code" -eq 2 && "$REVIEW_APPROVED" == "true" ]]; then
+            echo "Compatibility review accepted through the compatibility-reviewed label." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
           exit "$code"
       - name: Upload compatibility report
         if: always()
