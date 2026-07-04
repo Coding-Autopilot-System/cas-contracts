@@ -9,8 +9,6 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-  pages: write
-  id-token: write
 # Single owner of the GitHub Pages deployment. Both the documentation site and
 # the schema registry are built into one artifact so a docs push and a schema
 # tag can never clobber each other on the single Pages origin.
@@ -70,10 +68,14 @@ jobs:
         with:
           path: ./site
   deploy:
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: build
     steps:
       - name: Deploy to GitHub Pages
