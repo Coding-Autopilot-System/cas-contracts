@@ -20,11 +20,11 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Check out proposed contracts
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: candidate
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
@@ -65,7 +65,7 @@ jobs:
           exit "$code"
       - name: Upload compatibility report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: compatibility-report
           path: candidate/compatibility-report.json
