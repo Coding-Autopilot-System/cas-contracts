@@ -1,6 +1,6 @@
 {
     "$schema":  "https://json-schema.org/draft/2020-12/schema",
-    "$id":  "https://schemas.coding-autopilot.dev/v1.0/verification-result.schema.json",
+    "$id":  "https://coding-autopilot-system.github.io/cas-contracts/registry/v1.0/verification-result.schema.json",
     "title":  "VerificationResult",
     "type":  "object",
     "allOf":  [
