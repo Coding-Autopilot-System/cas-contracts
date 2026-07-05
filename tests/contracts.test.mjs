@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createValidator, exampleRoot, jsonFilesRecursive, readJson, schemaIdForExample } from "../scripts/lib.mjs";
+import { createValidator, exampleRoot, jsonFilesRecursive, readJson, schemaId, schemaIdForExample } from "../scripts/lib.mjs";
 
 const ajv = await createValidator();
 const examplePaths = await jsonFilesRecursive(exampleRoot);
@@ -32,7 +32,7 @@ test("each complete lifecycle preserves correlation and W3C trace context", () =
 test("contracts reject missing mandatory lifecycle metadata", () => {
   const invalid = structuredClone(examples.find((example) => example.kind === "PromptEnvelope" && example.schemaVersion === "0.1.0"));
   delete invalid.correlationId;
-  const validate = ajv.getSchema("https://coding-autopilot-system.github.io/cas-contracts/registry/v0.1/prompt-envelope.schema.json");
+  const validate = ajv.getSchema(schemaId("v0.1", "prompt-envelope"));
 
   assert.equal(validate(invalid), false);
   assert.match(ajv.errorsText(validate.errors), /correlationId/);
@@ -41,14 +41,14 @@ test("contracts reject missing mandatory lifecycle metadata", () => {
 test("contracts reject malformed W3C traceparent values", () => {
   const invalid = structuredClone(examples.find((example) => example.kind === "RunEvent" && example.schemaVersion === "0.1.0"));
   invalid.traceContext.traceparent = "not-a-traceparent";
-  const validate = ajv.getSchema("https://coding-autopilot-system.github.io/cas-contracts/registry/v0.1/run-event.schema.json");
+  const validate = ajv.getSchema(schemaId("v0.1", "run-event"));
 
   assert.equal(validate(invalid), false);
   assert.match(ajv.errorsText(validate.errors), /pattern/);
 });
 
 test("v1.1 SDLC profile accepts a complete twelve-phase profile", () => {
-  const validate = ajv.getSchema("https://coding-autopilot-system.github.io/cas-contracts/registry/v1.1/sdlc-profile.schema.json");
+  const validate = ajv.getSchema(schemaId("v1.1", "sdlc-profile"));
   assert.ok(validate, "v1.1 profile schema is registered");
   const profile = {
     correlationId: "corr-1",
@@ -83,7 +83,7 @@ test("v1.1 SDLC profile accepts a complete twelve-phase profile", () => {
 });
 
 test("v1.1 SDLC request rejects missing profile version", () => {
-  const validate = ajv.getSchema("https://coding-autopilot-system.github.io/cas-contracts/registry/v1.1/phase-execution-request.schema.json");
+  const validate = ajv.getSchema(schemaId("v1.1", "phase-execution-request"));
   assert.ok(validate, "v1.1 request schema is registered");
   const request = {
     correlationId: "corr-1",

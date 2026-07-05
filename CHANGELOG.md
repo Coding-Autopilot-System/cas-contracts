@@ -10,6 +10,13 @@ All notable changes follow Semantic Versioning and Keep a Changelog conventions.
 - Deterministic schema registry packaging and release-triggered GitHub Pages distribution.
 - Stable major/minor and immutable patch-version schema URL contracts with SHA-256 manifests.
 
+## [1.1.1] - 2026-07-05
+
+### Fixed
+
+- Restored canonical schema `$id` values and example schema artifact URIs to `https://schemas.coding-autopilot.dev/` while keeping GitHub Pages `registry/` URLs as the live distribution endpoint.
+- Added regression coverage to ensure schema identity remains canonical and independent from the hosting URL.
+
 ## [0.1.0] - 2026-06-11
 
 ### Added
