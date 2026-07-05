@@ -55,6 +55,16 @@ a schema tag can no longer clobber each other on the single Pages origin.
 
 Repository administrators must configure GitHub Pages to use **GitHub Actions** as its source. Publication uses GitHub's OIDC token and does not require stored deployment credentials.
 
+### Release ordering
+
+GitHub Pages identifies deployments by commit SHA. A release tag created on the
+same commit as a just-finished default-branch deployment can therefore produce a
+different artifact that Pages treats as the same deployment. After creating a
+schema release tag, merge a post-release metadata commit (for example, advancing
+the changelog) on the default branch. That deployment runs from a new SHA, sees
+the new tag, and publishes the complete immutable release set. Verify both the
+immutable manifest and the stable-line index before declaring the release done.
+
 ## Custom domain (optional future work)
 
 When `schemas.coding-autopilot.dev` is activated, it must serve the same
