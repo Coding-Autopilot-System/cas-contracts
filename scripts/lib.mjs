@@ -8,6 +8,8 @@ export const schemaRoot = path.join(root, "schemas");
 export const exampleRoot = path.join(root, "examples");
 export const schemaDirectory = path.join(schemaRoot, "v0.1");
 export const exampleDirectory = path.join(exampleRoot, "v0.1");
+export const canonicalSchemaBase = "https://schemas.coding-autopilot.dev";
+export const pagesRegistryBase = "https://coding-autopilot-system.github.io/cas-contracts/registry";
 
 export async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
@@ -40,8 +42,12 @@ export async function createValidator(directory = schemaRoot) {
   return ajv;
 }
 
+export function schemaId(version, name) {
+  return `${canonicalSchemaBase}/${version}/${name}.schema.json`;
+}
+
 export function schemaIdForExample(examplePath) {
   const name = path.basename(examplePath, ".json");
   const version = path.basename(path.dirname(examplePath));
-  return `https://coding-autopilot-system.github.io/cas-contracts/registry/${version}/${name}.schema.json`;
+  return schemaId(version, name);
 }

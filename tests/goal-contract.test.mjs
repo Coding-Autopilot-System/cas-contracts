@@ -1,16 +1,16 @@
 import assert from "node:assert/strict";
 import path from "node:path";
 import test from "node:test";
-import { createValidator, readJson, root } from "../scripts/lib.mjs";
+import { createValidator, readJson, root, schemaId } from "../scripts/lib.mjs";
 
 const version = "v1.0";
 const schemaDirectory = path.join(root, "schemas", version);
 const examplePath = path.join(root, "examples", version, "work-request.json");
-const schemaId = "https://coding-autopilot-system.github.io/cas-contracts/registry/v1.0/work-request.schema.json";
+const workRequestSchemaId = schemaId(version, "work-request");
 
 const ajv = await createValidator(schemaDirectory);
 const validGoal = await readJson(examplePath);
-const validate = ajv.getSchema(schemaId);
+const validate = ajv.getSchema(workRequestSchemaId);
 
 test("v1 goal fixture declares every bounded default", () => {
   assert.ok(validate);
@@ -70,13 +70,13 @@ test("v1 lifecycle rejects incomplete metadata and malformed trace context", () 
 
 test("v1 verification and evaluation records require evidence URIs", async () => {
   const verification = await readJson(path.join(root, "examples", version, "verification-result.json"));
-  const verificationValidator = ajv.getSchema("https://coding-autopilot-system.github.io/cas-contracts/registry/v1.0/verification-result.schema.json");
+  const verificationValidator = ajv.getSchema(schemaId(version, "verification-result"));
   const noVerificationEvidence = structuredClone(verification);
   delete noVerificationEvidence.checks[0].evidenceUri;
   assert.equal(verificationValidator(noVerificationEvidence), false);
 
   const evaluation = await readJson(path.join(root, "examples", version, "evaluation-result.json"));
-  const evaluationValidator = ajv.getSchema("https://coding-autopilot-system.github.io/cas-contracts/registry/v1.0/evaluation-result.schema.json");
+  const evaluationValidator = ajv.getSchema(schemaId(version, "evaluation-result"));
   const noEvaluationEvidence = structuredClone(evaluation);
   delete noEvaluationEvidence.evidence;
   assert.equal(evaluationValidator(noEvaluationEvidence), false);

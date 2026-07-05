@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { buildAllRegistry, buildRegistry } from "../scripts/build-registry.mjs";
-import { createValidator, jsonFiles, readJson, schemaDirectory } from "../scripts/lib.mjs";
+import { createValidator, jsonFiles, readJson, schemaDirectory, schemaId } from "../scripts/lib.mjs";
 import { validateRegistry } from "../scripts/validate-registry.mjs";
 
 async function build() {
@@ -39,6 +39,21 @@ test("distributed stable schemas compile and retain authoritative ids", async ()
     if (file.endsWith("manifest.json")) continue;
     assert.ok(validator.getSchema(schema.$id), `${schema.$id} compiles from distributed output`);
   }
+});
+
+test("registry keeps canonical schema identity independent from the Pages hosting URL", async () => {
+  const output = await build();
+  const manifest = await readJson(path.join(output, "v0.1", "manifest.json"));
+
+  for (const entry of manifest.schemas) {
+    assert.match(entry.id, /^https:\/\/schemas\.coding-autopilot\.dev\//);
+    assert.doesNotMatch(entry.id, /github\.io/);
+    assert.notEqual(entry.id, `https://coding-autopilot-system.github.io/cas-contracts/registry/v0.1/${entry.path}`);
+  }
+
+  const promptEnvelope = manifest.schemas.find((entry) => entry.path === "prompt-envelope.schema.json");
+  assert.ok(promptEnvelope, "prompt-envelope is published");
+  assert.equal(promptEnvelope.id, schemaId("v0.1", "prompt-envelope"));
 });
 
 test("registry builds are deterministic and append preserves immutable releases", async () => {

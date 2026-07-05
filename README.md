@@ -60,6 +60,7 @@ Producers should emit records that validate against the declared version. Consum
 The schemas are public APIs. Review [versioning and compatibility](docs/VERSIONING.md), [contributing](CONTRIBUTING.md), and [security](SECURITY.md) before proposing changes.
 
 Released schemas are discoverable from `https://coding-autopilot-system.github.io/cas-contracts/registry/index.json`. Use stable `registry/vMAJOR.MINOR` URLs for compatible updates or immutable `registry/releases/vMAJOR.MINOR.PATCH` URLs for reproducible builds. See [schema distribution](docs/DISTRIBUTION.md).
+Authoritative schema identity remains under `https://schemas.coding-autopilot.dev/`; the GitHub Pages registry is the current live distribution endpoint.
 
 The v1 `WorkRequest` rejects dispatch unless objective, repositories,
 measurable criteria, constraints, risk, approval and verification policies,

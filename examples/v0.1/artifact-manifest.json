@@ -11,7 +11,7 @@
   "artifacts": [
     {
       "kind": "schema",
-      "uri": "https://coding-autopilot-system.github.io/cas-contracts/registry/v0.1/prompt-envelope.schema.json",
+      "uri": "https://schemas.coding-autopilot.dev/v0.1/prompt-envelope.schema.json",
       "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
     }
   ]
