@@ -7,11 +7,9 @@ sub-path of the documentation site on a single GitHub Pages origin:
 https://coding-autopilot-system.github.io/cas-contracts/registry/
 ```
 
-Schema `$id` values use the reserved canonical namespace
-`https://schemas.coding-autopilot.dev/`. That namespace is the stable identity
-of each schema even though the current live distribution is served from GitHub
-Pages. Consumers should treat `$id` as identity and use the Pages registry URLs
-below as the fetch location until the canonical domain is activated.
+Schema `$id` values are now identical to the live fetch URL under the GitHub
+Pages registry — there is no separate canonical namespace. `$id` is both the
+identity and the resolvable fetch location for every schema.
 
 ## URL Contract
 
@@ -67,7 +65,9 @@ immutable manifest and the stable-line index before declaring the release done.
 
 ## Custom domain (optional future work)
 
-When `schemas.coding-autopilot.dev` is activated, it must serve the same
-versioned registry content without changing any schema `$id` values. The live
-GitHub Pages registry remains the current distribution URL and should stay
-stable for consumers that fetch schemas directly today.
+If `schemas.coding-autopilot.dev` is ever activated as a custom domain, that
+will require a new, explicit `$id` migration with its own consumer-compatibility
+plan — it is not a transparent, zero-cost activation. `$id` currently equals
+the live GitHub Pages fetch URL, so repointing `$id` to a future custom domain
+would be a breaking change for any consumer that has adopted the current
+`$id` value, and must be planned and announced accordingly.
