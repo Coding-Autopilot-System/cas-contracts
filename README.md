@@ -60,7 +60,7 @@ Producers should emit records that validate against the declared version. Consum
 The schemas are public APIs. Review [versioning and compatibility](docs/VERSIONING.md), [contributing](CONTRIBUTING.md), and [security](SECURITY.md) before proposing changes.
 
 Released schemas are discoverable from `https://coding-autopilot-system.github.io/cas-contracts/registry/index.json`. Use stable `registry/vMAJOR.MINOR` URLs for compatible updates or immutable `registry/releases/vMAJOR.MINOR.PATCH` URLs for reproducible builds. See [schema distribution](docs/DISTRIBUTION.md).
-Authoritative schema identity remains under `https://schemas.coding-autopilot.dev/`; the GitHub Pages registry is the current live distribution endpoint.
+The GitHub Pages registry above is the authoritative, resolvable distribution endpoint today. The 22 schema `$id` values currently in `schemas/` still point at `https://schemas.coding-autopilot.dev/`, a domain that is not presently resolvable; migrating those `$id` values to the resolvable Pages registry URL is in progress (PR #18, `fix(registry): rewrite schema $id to the resolvable Pages registry URL`). Until that PR merges, treat the Pages registry index — not the `schemas.coding-autopilot.dev` `$id` values — as the source of truth for schema identity.
 
 The v1 `WorkRequest` rejects dispatch unless objective, repositories,
 measurable criteria, constraints, risk, approval and verification policies,
@@ -75,3 +75,5 @@ seconds, model calls 20, and no-progress limit 2.
 ## License
 
 MIT
+
+<!-- docs-verified: 991c3606b148ab42134e505f4cf110afb8cb8e6b 2026-07-08 -->
