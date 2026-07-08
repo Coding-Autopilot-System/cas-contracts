@@ -41,14 +41,13 @@ test("distributed stable schemas compile and retain authoritative ids", async ()
   }
 });
 
-test("registry keeps canonical schema identity independent from the Pages hosting URL", async () => {
+test("registry schema identity resolves under the live Pages registry URL", async () => {
   const output = await build();
   const manifest = await readJson(path.join(output, "v0.1", "manifest.json"));
 
   for (const entry of manifest.schemas) {
-    assert.match(entry.id, /^https:\/\/schemas\.coding-autopilot\.dev\//);
-    assert.doesNotMatch(entry.id, /github\.io/);
-    assert.notEqual(entry.id, `https://coding-autopilot-system.github.io/cas-contracts/registry/v0.1/${entry.path}`);
+    assert.match(entry.id, /^https:\/\/coding-autopilot-system\.github\.io\/cas-contracts\/registry\//);
+    assert.equal(entry.id, `https://coding-autopilot-system.github.io/cas-contracts/registry/v0.1/${entry.path}`);
   }
 
   const promptEnvelope = manifest.schemas.find((entry) => entry.path === "prompt-envelope.schema.json");

@@ -4,6 +4,10 @@ All notable changes follow Semantic Versioning and Keep a Changelog conventions.
 
 ## [Unreleased]
 
+### Changed
+
+- **BREAKING:** Schema `$id` values now point at the live GitHub Pages registry (`https://coding-autopilot-system.github.io/cas-contracts/registry/...`) instead of the unresolvable `https://schemas.coding-autopilot.dev/` namespace introduced in v1.1.1. Consumers that hardcode the old `$id` string (e.g. offline schema validators) must update to the new value. See REQ-1.4.11.
+
 ### Added
 
 - Conservative automated JSON Schema compatibility classification in pull-request CI.

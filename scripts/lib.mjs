@@ -43,7 +43,7 @@ export async function createValidator(directory = schemaRoot) {
 }
 
 export function schemaId(version, name) {
-  return `${canonicalSchemaBase}/${version}/${name}.schema.json`;
+  return `${pagesRegistryBase}/${version}/${name}.schema.json`;
 }
 
 export function schemaIdForExample(examplePath) {
