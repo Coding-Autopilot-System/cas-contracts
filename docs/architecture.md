@@ -6,6 +6,8 @@ The **CAS Contracts** architecture is designed to govern and trace the interacti
 
 The lifecycle operates strictly sequentially for every given unit of work. Below is a rich architectural visualization of how data flows through the lifecycle from the initial prompt to final evaluation.
 
+![Visual Diagram](assets/cas_contracts_architecture.png)
+
 ```mermaid
 graph TD
     %% Core Entities
