@@ -88,5 +88,5 @@ test("registry all-mode publishes all lines without replacing any", async () => 
   assert.deepEqual(index.lines, { "v0.1": "0.1.0", "v1.0": "1.0.0", "v1.1": "1.1.0" });
   assert.equal((await readJson(path.join(output, "v0.1", "manifest.json"))).schemas.length, 8);
   assert.equal((await readJson(path.join(output, "v1.0", "manifest.json"))).schemas.length, 8);
-  assert.equal((await readJson(path.join(output, "v1.1", "manifest.json"))).schemas.length, 6);
+  assert.equal((await readJson(path.join(output, "v1.1", "manifest.json"))).schemas.length, 7);
 });
