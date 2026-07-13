@@ -2,6 +2,15 @@
 
 All notable changes follow Semantic Versioning and Keep a Changelog conventions.
 
+## [1.1.2](https://github.com/Coding-Autopilot-System/cas-contracts/compare/v1.1.1...v1.1.2) (2026-07-13)
+
+
+### Bug Fixes
+
+* **ci:** repin release-please reusable workflow to reachable SHA ([#23](https://github.com/Coding-Autopilot-System/cas-contracts/issues/23)) ([3029fbe](https://github.com/Coding-Autopilot-System/cas-contracts/commit/3029fbeb2f192a5e0fc552da22162519af10ca8d))
+* **ci:** wire release-please PAT into reusable workflow caller ([#27](https://github.com/Coding-Autopilot-System/cas-contracts/issues/27)) ([d15cc54](https://github.com/Coding-Autopilot-System/cas-contracts/commit/d15cc54a790a3c0c1ad46353fc246110fbd7531f))
+* **registry:** rewrite schema $id to the resolvable Pages registry URL ([#18](https://github.com/Coding-Autopilot-System/cas-contracts/issues/18)) ([b385f15](https://github.com/Coding-Autopilot-System/cas-contracts/commit/b385f1593820ae5a938ae7c1825758aa6eea21b2))
+
 ## [Unreleased]
 
 ### Changed
