@@ -98,6 +98,16 @@
         "waiting",
         "terminal"
       ]
+    },
+    "failureClass": {
+      "type": "string",
+      "enum": [
+        "transient",
+        "deterministic",
+        "policy",
+        "cancellation",
+        "unrecoverable"
+      ]
     }
   }
 }

@@ -22,6 +22,8 @@ All notable changes follow Semantic Versioning and Keep a Changelog conventions.
 - Conservative automated JSON Schema compatibility classification in pull-request CI.
 - Deterministic schema registry packaging and release-triggered GitHub Pages distribution.
 - Stable major/minor and immutable patch-version schema URL contracts with SHA-256 manifests.
+- `failure-state.schema.json` for typed failure-state payloads in the v1.1 contract line.
+- Shared `failureClass` enum in `schemas/v1.1/common.schema.json` for cross-runtime failure classification.
 
 ## [1.1.1] - 2026-07-05
 

@@ -56,3 +56,13 @@ The classifier reports:
 - `review_required`: changed semantics that cannot be classified safely by the automated rules.
 
 Both `breaking` and `review_required` exit nonzero. A `review_required` result must be resolved by simplifying the change, extending classifier coverage with tests, or obtaining explicit maintainer review. Automation never treats an unknown semantic change as compatible.
+
+## v1.1 FailureState Addition
+
+The `FailureState` contract added to the v1.1 line is a minor, additive change.
+
+- It introduces a new schema file: `schemas/v1.1/failure-state.schema.json`.
+- It adds a shared `failureClass` enum definition to `schemas/v1.1/common.schema.json`.
+- It does not remove or rename any existing schema, required property, or accepted enum value in previously published contracts.
+
+Existing v1.1 payloads remain valid, and consumers can adopt `FailureState` incrementally.

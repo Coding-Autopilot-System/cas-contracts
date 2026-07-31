@@ -105,3 +105,23 @@ test("v1.1 SDLC request rejects missing profile version", () => {
   assert.equal(validate(request), false);
   assert.match(ajv.errorsText(validate.errors), /profileVersion/);
 });
+
+test("v1.1 FailureState example satisfies the authoritative schema", () => {
+  const examplePath = `${exampleRoot}/v1.1/failure-state.json`;
+  const validate = ajv.getSchema(schemaIdForExample(examplePath));
+  const example = examples.find((record) => record.kind === "FailureState" && record.schemaVersion === "1.1.0");
+
+  assert.ok(validate, "v1.1 failure-state schema is registered");
+  assert.ok(example, "v1.1 FailureState example exists");
+  assert.equal(validate(example), true, ajv.errorsText(validate.errors));
+});
+
+test("v1.1 FailureState rejects missing failureClass", () => {
+  const example = structuredClone(examples.find((record) => record.kind === "FailureState" && record.schemaVersion === "1.1.0"));
+  const validate = ajv.getSchema(schemaId("v1.1", "failure-state"));
+  delete example.failureClass;
+
+  assert.ok(validate, "v1.1 failure-state schema is registered");
+  assert.equal(validate(example), false);
+  assert.match(ajv.errorsText(validate.errors), /failureClass/);
+});

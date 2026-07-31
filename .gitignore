@@ -5,3 +5,9 @@ release-source/
 .tmp/
 *.log
 .DS_Store
+
+.tmp-gh-*.ps1
+
+.tmp-venv*/
+
+TestResults/
